@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+	--font-Sansation: 'Sansation', sans-serif;
+	--animate-surgir-in: surgir 0.15s normal;
+	--animate-surgir-out: surgir 2s reverse;
+
+	--color-pastel-purple: #c3b1e1;
+}
+
+* {
+	@apply font-Sansation;
+}
+
+@keyframes surgir {
+	from {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+	to {
+		opacity: 100;
+		transform: translateX(0);
+	}
+}
+
+@utility clickBTN {
+	&{
+		@apply active:translate-y-0.5 ;
+	}
+}
