@@ -18,18 +18,18 @@ export function NotesView() {
 				resp = [];
 				console.log(`Error: ${error}`);
 			}
-			setDB((prev) => [...prev, ...resp]);
+			setDB((prev) => [...(prev ?? []), ...resp]);
 		})();
 		// --
 	}, []);
 
 	const filterRules = {
 		todos: () => true,
-		check: (item: iToDo) => item.status == true,
-		pending: (item: iToDo) => item.status == false,
+		check: (item: iToDo) => item.status == 'concluída',
+		pending: (item: iToDo) => item.status == 'pendente',
 	};
 
-	const filteredItems = DB.filter((item) =>
+	const filteredItems = (DB ?? []).filter((item) =>
 		filterRules[option] ? filterRules[option]?.(item) : true
 	);
 
