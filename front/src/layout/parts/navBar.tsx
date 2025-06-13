@@ -1,64 +1,70 @@
 import { useAtom } from 'jotai';
-import { Exchange } from '../../utils/fetch';
 import { ctxMain } from '../../contexts/ctxMain';
-import clsx from 'clsx';
 import { iToDo, ToDoStatus } from '../../types/useTypes';
+import clsx from 'clsx';
 
 export function NavBar() {
 	const [, setDB] = useAtom(ctxMain.BagToDos);
 	const [option, setOption] = useAtom(ctxMain.optionBar);
+	const [search, setSearch] = useAtom(ctxMain.search);
 
 	const createNote = async () => {
-		// Requisição
-		const response = (await Exchange(
-			{
-				title: '',
-				content: '',
-				favorited: option == 'check' ? true : false,
-			},
-			'http://127.0.0.1:5000/toDo/cards',
-			'POST'
-		)) as iToDo;
-
-		// Atualizar o Local DB dos dados salvados no serverSide
-		setDB((prev) => [...(prev ?? []), response as iToDo]);
+		// const response = await fetch();
+		var test = {
+			id: Math.random(),
+			desc: 'add',
+			createdAt: new Date(),
+			status: 'concluida',
+		} as iToDo;
+		setDB((prev) => [...(prev ?? []), test]);
 	};
 
-	const OptionsBar = ({
-		text,
-		status,
-	}: {
-		text: string;
-		status?: ToDoStatus;
-	}) => (
+	return (
+		<div className='shrink-0 w-136 bg-white p-2 h-13 flex gap-1 rounded-lg text-sm flex-row '>
+			
+			<input
+				type='text'
+				name=''
+				id=''
+				value={search}
+				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+					setSearch(e.target.value)
+				}
+				className='bg-stone-200 focus:bg-stone-300 transition-colors w-full rounded outline-none font-bold text-[#28282b] px-2 text-base'
+			/>
+			<button
+				onClick={() => createNote()}
+				className='clickBTN rounded px-4 w-4 bg-purple-500 text-white font-bold text-[20px] cursor-pointer grid place-content-center'>
+				C
+			</button>
+		</div>
+	);
+}
+
+export function FilterStatus() {
+	const [option, setOption] = useAtom(ctxMain.optionBar);
+	const OptionBar = ({ text }: { text: ToDoStatus | 'todos' }) => (
 		<button
-			className={clsx(
-				'rounded px-2 font-bold cursor-pointer transition-color duration-500 w-max',
-				option.toLowerCase() == status?.toLowerCase()
-					? 'bg-purple-600 text-white'
-					: 'bg-stone-200 text-stone-800  '
-			)}
-			onClick={() => status && setOption(status)}>
-			{text}
+			onClick={() => setOption(text)}
+			className='px-2'>
+			<span
+				className={clsx(
+					'transition-all cursor-pointer text-base font-extrabold',
+					option == text ? 'text-white' : 'text-black/70 hover:text-black'
+				)}>
+				{text}
+			</span>
 		</button>
 	);
 
 	return (
-		<div className='shrink-0 w-134 bg-white p-2 h-12 flex gap-1 rounded-lg text-sm flex-row '>
-			<OptionsBar text='ToDos' />
-			<OptionsBar
-				text='Check'
-				status={'concluída'}
-			/>
-			<OptionsBar
-				text='Pending'
-				status={'pendente'}
-			/>
-			<button
-				className='clickBTN rounded px-4 w-max bg-purple-600 text-white font-bold text-whit ml-auto cursor-pointer'
-				onClick={() => createNote()}>
-				Create Note
-			</button>
+		<div className='flex items-center gap-1 '>
+			<OptionBar text='todos' />
+			<strong className='opacity-50 cursor-default'>|</strong>
+			<OptionBar text='pendente' />
+			<OptionBar text='concluida' />
+			<strong className='opacity-50 cursor-default'>|</strong>
+			<OptionBar text='deletada' />
 		</div>
 	);
 }
