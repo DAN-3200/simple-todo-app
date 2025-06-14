@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { ctxMain } from '../../contexts/ctxMain';
-import { iToDo } from '../../types/useTypes';
+import { ToDoModel } from '../../types/useTypes';
 import { BiTimeFive, BiTrashAlt } from 'react-icons/bi';
 import clsx from 'clsx';
 
@@ -45,7 +45,7 @@ export function ToDoList() {
 	);
 }
 
-function ToDoView({ item }: { item: iToDo }) {
+function ToDoView({ item }: { item: ToDoModel }) {
 	const [status, setStatus] = useState(item.status);
 	const [desc, setDesc] = useState(item.desc);
 

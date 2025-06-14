@@ -1,4 +1,4 @@
-export interface iToDo {
+export interface ToDoModel {
 	id: number;
 	desc: string;
 	status: ToDoStatus;

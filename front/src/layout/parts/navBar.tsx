@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai';
 import { ctxMain } from '../../contexts/ctxMain';
-import { iToDo, ToDoStatus } from '../../types/useTypes';
+import { ToDoModel, ToDoStatus } from '../../types/useTypes';
 import clsx from 'clsx';
 
 export function NavBar() {
@@ -15,13 +15,12 @@ export function NavBar() {
 			desc: 'add',
 			createdAt: new Date(),
 			status: 'concluida',
-		} as iToDo;
+		} as ToDoModel;
 		setDB((prev) => [...(prev ?? []), test]);
 	};
 
 	return (
 		<div className='shrink-0 w-136 bg-white p-2 h-13 flex gap-1 rounded-lg text-sm flex-row '>
-			
 			<input
 				type='text'
 				name=''
