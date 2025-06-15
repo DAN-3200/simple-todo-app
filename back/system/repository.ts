@@ -7,7 +7,7 @@ export class MongoRepoToDo implements RepoDB {
 	constructor(conn: MongoClient) {
 		this.conn = conn;
 	}
-	async CreateBASE() {
+	async CreateToDoDB() {
 		const db = this.conn.db('ToDoBase');
 		const nameCollection = 'ToDoS';
 		const collections = await db
