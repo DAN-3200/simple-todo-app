@@ -7,18 +7,18 @@ export class ToDoService {
 		this.repo = repository;
 	}
 	async SaveToDo(todo: ToDoModel): Promise<ToDoModel> {
-		return this.repo.SaveToDo(todo);
+		return await this.repo.SaveToDo(todo);
 	}
 	async GetToDo(id: string): Promise<ToDoModel> {
-		return this.repo.GetToDo(id);
+		return await this.repo.GetToDo(id);
 	}
 	async GetToDoList(): Promise<ToDoModel[]> {
-		return this.repo.GetToDoList();
+		return await this.repo.GetToDoList();
 	}
 	async EditToDo(info: ToDoModel) {
-		this.repo.EditToDo(info);
+		await this.repo.EditToDo(info);
 	}
 	async DeleteToDo(id: string) {
-		this.repo.DeleteToDo(id);
+		await this.repo.DeleteToDo(id);
 	}
 }
