@@ -1,14 +1,9 @@
 import { atom } from 'jotai';
-import { ToDoModel, ToDoStatus } from '../types/useTypes';
+import { ToDoModel, ToDoStatus } from '../domain/model/model';
 
 export const ctxMain = {
 	BagToDos: atom<ToDoModel[]>([
-		{
-			id: Math.random(),
-			desc: 'Muita coisa Gulosa',
-			createdAt: new Date(),
-			status: 'pendente',
-		},
+		{ id: 's', desc: '', status: 'pendente', createdAt: new Date() },
 	] as ToDoModel[]),
 	optionBar: atom<ToDoStatus | 'todos'>('todos'),
 	search: atom<string>(''),

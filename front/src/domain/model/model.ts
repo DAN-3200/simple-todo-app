@@ -1,5 +1,5 @@
 export interface ToDoModel {
-	id: number;
+	id: string;
 	desc: string;
 	status: ToDoStatus;
 	createdAt: Date;
