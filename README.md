@@ -51,5 +51,4 @@ docker-compose up -d mongo
 ```
 
 ## Endpoints da API
-Testar os endpoints no Postman [link](https://.postman.co/workspace/My-Workspace~00f4fab6-c2e4-4c56-8092-b7c434e771fc/collection/43029232-49f5a658-a5b4-45b3-939d-c21cfa10f67c?action=share&creator=43029232)
-
+Testar os endpoints no Postman [link](https://www.postman.com/dan-3200/workspace/publico/collection/43029232-49f5a658-a5b4-45b3-939d-c21cfa10f67c?action=share&creator=43029232)
