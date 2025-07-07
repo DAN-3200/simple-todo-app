@@ -28,6 +28,6 @@ async function RoutesManager(server: Express.Application) {
 	server.post('/todo', handle.SaveToDo);
 	server.get('/todo/:id', handle.GetToDo);
 	server.get('/todo', handle.GetToDoList);
-	server.put('/todo/:id', handle.EditToDo);
+	server.patch('/todo/:id', handle.EditToDo);
 	server.delete('/todo', handle.DeleteToDo);
 }

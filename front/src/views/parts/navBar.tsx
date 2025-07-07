@@ -3,6 +3,8 @@ import { ctxMain } from '../../contexts/ctxMain';
 import { ToDoStatus } from '../../domain/model/model';
 import clsx from 'clsx';
 import { ToDoService } from '../../domain/services/todoActions';
+import { FaPlus, FaSearch } from 'react-icons/fa';
+import * as luc from 'lucide-react';
 
 export function NavBar() {
 	const [, setDB] = useAtom(ctxMain.BagToDos);
@@ -16,23 +18,34 @@ export function NavBar() {
 
 	return (
 		<div className='shrink-0 w-136 bg-white p-2 h-13 flex gap-1 rounded-lg text-sm flex-row '>
-			<input
-				type='text'
-				name=''
-				id=''
-				value={search}
-				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-					setSearch(e.target.value)
-				}
-				className='bg-stone-200 focus:bg-stone-300 transition-colors w-full rounded outline-none font-bold text-[#28282b] px-2 text-base'
-			/>
+			<div className=' bg-stone-200 focus-within:bg-stone-300 transition-colors w-full rounded font-bold text-[#28282b] px-2 text-base flex items-center gap-2'>
+				<luc.Search
+					size={16}
+					strokeWidth={3.0}
+					className='text-stone-500'
+				/>
+				<input
+					type='text'
+					name=''
+					id=''
+					value={search}
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+						setSearch(e.target.value)
+					}
+					className='w-full h-full outline-none'
+				/>
+			</div>
+
 			<button
 				onClick={() => option != 'deletada' && SaveToDo()}
 				className={clsx(
 					'rounded px-4 w-4 bg-purple-500 text-white font-bold text-[20px]  grid place-content-center',
 					option != 'deletada' ? 'clickBTN cursor-pointer' : 'opacity-40'
 				)}>
-				C
+				<luc.Plus
+					strokeWidth={3}
+					size={20}
+				/>
 			</button>
 		</div>
 	);

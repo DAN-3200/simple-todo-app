@@ -10,12 +10,12 @@
 ![image](https://github.com/user-attachments/assets/c7212a33-5d19-46dd-b34d-37d216a53511)
 
 ## Descrição 
-Aplicação simples de tarefas (ToDos), com interface leve, moderna e intuitiva, desenvolvida inteiramente com a stack TypeScript. No front end, são utilizadas as tecnologias React.js, Vite e Tailwind CSS. No back end, Express.js e MongoDB. É possível criar, editar, validar e excluir tarefas.
+Aplicação simples de tarefas (ToDos), com interface leve, moderna e intuitiva, desenvolvida inteiramente com a stack TypeScript. No front end, são utilizadas as tecnologias React.js, Vite, Framer Motion e Tailwind CSS. No back end, Express.js e MongoDB. É possível criar, editar, validar e excluir tarefas.
 Este projeto teve como objetivo o aprendizado e a consolidação dos conceitos e ferramentas utilizadas.
 
 ## Tecnologias
 
-* **Front End:** React.js, Tailwind.CSS, TypeScript
+* **Front End:** React.js, Tailwind.CSS, Framer Motion, TypeScript
 * **Back End:** Node.js, Express.js, MongoDB, TypeScript
 
 ## Instalação e Execução

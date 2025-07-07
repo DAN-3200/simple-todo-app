@@ -36,7 +36,7 @@ export class ToDoService {
 
 	static EditToDo = async (todo: Partial<ToDoModel>): Promise<void> => {
 		await fetch(`http://127.0.0.1:8000/todo/${todo.id}`, {
-			method: 'PUT',
+			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
 			},
