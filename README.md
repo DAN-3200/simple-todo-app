@@ -4,18 +4,19 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 
 ![image](https://github.com/user-attachments/assets/c7212a33-5d19-46dd-b34d-37d216a53511)
 
 ## Descrição 
-Aplicação simples de tarefas (ToDos), com interface leve, moderna e intuitiva, desenvolvida inteiramente com a stack TypeScript. No front end, são utilizadas as tecnologias React.js, Vite, Framer Motion e Tailwind CSS. No back end, Express.js e MongoDB. É possível criar, editar, validar e excluir tarefas.
+Aplicação simples de tarefas (ToDos), com interface leve, moderna e intuitiva, desenvolvida inteiramente com a stack TypeScript. No front end, são utilizadas as tecnologias React.js, Vite, Jotai, Framer Motion e Tailwind CSS. No back end, Express.js e MongoDB. É possível criar, editar, validar e excluir tarefas.
 Este projeto teve como objetivo o aprendizado e a consolidação dos conceitos e ferramentas utilizadas.
 
 ## Tecnologias
 
-* **Front End:** React.js, Tailwind.CSS, Framer Motion, TypeScript
+* **Front End:** React.js, Tailwind.CSS, Framer Motion, Vite, Jotai, TypeScript
 * **Back End:** Node.js, Express.js, MongoDB, TypeScript
 
 ## Instalação e Execução
