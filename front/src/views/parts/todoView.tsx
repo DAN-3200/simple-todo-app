@@ -6,10 +6,11 @@ import clsx from 'clsx';
 import * as luc from 'lucide-react';
 import { ToDoService } from '../../domain/services/todoActions';
 import { motion, AnimatePresence } from 'motion/react';
+import TextareaAutosize from 'react-textarea-autosize';
 
 export function ToDoList() {
 	const [DB, setDB] = useAtom(ctxMain.BagToDos);
-	const [option, setOption] = useAtom(ctxMain.optionBar);
+	const [option] = useAtom(ctxMain.optionBar);
 	const [search] = useAtom(ctxMain.search);
 
 	useEffect(() => {
@@ -36,12 +37,15 @@ export function ToDoList() {
 				<div className='font-bold text-black/50'>não há anotações</div>
 			)}
 			<AnimatePresence>
-				{filteredItems.slice().reverse().map((item) => (
-					<ToDoView
-						key={item.id}
-						info={item}
-					/>
-				))}
+				{filteredItems
+					.slice()
+					.reverse()
+					.map((item) => (
+						<ToDoView
+							key={item.id}
+							info={item}
+						/>
+					))}
 			</AnimatePresence>
 		</div>
 	);
@@ -88,26 +92,42 @@ function ToDoView({ info }: { info: ToDoModel }) {
 		UpdateToDo();
 	}, [status, desc]);
 
+	const [isEditing, setEditing] = useState(false);
+
 	return (
 		<motion.div
 			key={info.id}
 			initial={{ opacity: 0 }}
-			animate={{ opacity: 1, x: 0 }}
-			exit={{ opacity: 0, x: 100 }}
-			transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-			className='bg-white w-full rounded-lg shrink-0 h-max flex flex-col overflow-hidden transition-all'>
-			<div className='m-2 p-1 border-2 border-transparent hover:border-stone-300 transition-all duration-200 rounded font-semibold '>
-				<textarea
-					placeholder='Escreva'
-					className='not-focus:line-clamp-1 scrollbar-thin not-focus:h-lh text-base w-full h-10 max-h-40 focus:h-40 resize-none px-2 outline-none text-[#28282b] transition-all no-scroll-button'
-					spellCheck='false'
-					value={desc}
-					onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-						setDesc(e.target.value);
-					}}
-				/>
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0, scale: 0.8 }}
+			layout
+			transition={{ type: 'spring', stiffness: 500, damping: 50 }}
+			className='bg-white w-full rounded-lg shrink-0 h-max flex flex-col overflow-hidden'>
+			<div className='m-2 p-1 border-2 border-transparent hover:border-stone-300 transition-color  rounded font-semibold '>
+				{isEditing ? (
+					<TextareaAutosize
+						autoFocus
+						minRows={1}
+						maxRows={4}
+						value={desc}
+						onBlur={() => setEditing(false)}
+						onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+							info.status !== 'deletada' && setDesc(e.target.value)
+						}
+						className='scrollbar-thin text-base w-full px-2 outline-none text-[#28282b] resize-none overflow-y-auto'
+					/>
+				) : (
+					<p
+						onClick={() => setEditing(true)}
+						className={clsx(
+							'text-base px-2  line-clamp-1 cursor-text',
+							desc.length != 0 ? 'text-[#28282b]' : 'text-stone-400'
+						)}>
+						{desc || 'Escreva...'}
+					</p>
+				)}
 			</div>
-			{/* <AutoResizeTextarea /> */}
+
 			<div className='h-11 shrink-0 bg-stone-200 flex py-2 px-3 gap-2'>
 				<button
 					onClick={() =>
@@ -175,11 +195,11 @@ export function DeleteSoftToDo() {
 		console.log(idToDo);
 		await ToDoService.DeleteToDo(idToDo);
 		setDB((prev) => prev.filter((item) => item.id != idToDo));
-		setModalView(null)
+		setModalView(null);
 	};
 
 	return (
-		<div className='bg-white h-max w-100 rounded-xl py-7 px-7 flex flex-col gap-5 justify-center items-center'>
+		<div className='bg-white h-max w-100 rounded-lg py-7 px-7 flex flex-col gap-5 justify-center items-center'>
 			<div className='self-center'>
 				<luc.TriangleAlert
 					className='text-amber-500'
@@ -190,7 +210,7 @@ export function DeleteSoftToDo() {
 				<span className='self-center font-bold text-base text-stone-800'>
 					Deseja realmente excluir esta tarefa?
 				</span>
-				<span className='self-center text-justify'>
+				<span className='self-center text-justify text-sm text-stone-600'>
 					Após a exclusão, não será possível recuperá-la.
 				</span>
 			</div>
@@ -198,7 +218,7 @@ export function DeleteSoftToDo() {
 			<div className='h-max flex gap-1 justify-center'>
 				<button
 					onClick={() => setModalView(null)}
-					className='w-max min-w-30 bg-stone-500/50 text-stone-600 font-bold rounded px-3 py-1 text-base cursor-pointer clickBTN'>
+					className='w-max min-w-30 bg-stone-400/50 text-stone-500 font-bold rounded px-3 py-1 text-base cursor-pointer clickBTN'>
 					Cancel
 				</button>
 				<button
