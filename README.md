@@ -7,17 +7,18 @@
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 ![image](https://github.com/user-attachments/assets/c7212a33-5d19-46dd-b34d-37d216a53511)
 
 ## Descrição 
-Aplicação simples de tarefas (ToDos), com interface leve, moderna e intuitiva, desenvolvida inteiramente com a stack TypeScript. No front end, são utilizadas as tecnologias React.js, Vite, Jotai, Framer Motion e Tailwind CSS. No back end, Express.js e MongoDB. É possível criar, editar, validar e excluir tarefas.
+Aplicação simples de tarefas (ToDos), com interface leve, moderna e intuitiva, desenvolvida inteiramente com a stack TypeScript. No front end, são utilizadas as tecnologias React.js, Vite, Jotai, Framer Motion e Tailwind CSS. No back end, Express.js e MongoDB (em Docker). É possível criar, editar, validar e excluir tarefas.
 Este projeto teve como objetivo o aprendizado e a consolidação dos conceitos e ferramentas utilizadas.
 
 ## Tecnologias
 
 * **Front End:** React.js, Tailwind.CSS, Framer Motion, Vite, Jotai, TypeScript
-* **Back End:** Node.js, Express.js, MongoDB, TypeScript
+* **Back End:** Node.js, Express.js, MongoDB (em Docker), TypeScript
 
 ## Instalação e Execução
 
