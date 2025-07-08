@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useAtom } from 'jotai';
 import { ctxMain, ctxToDo } from '../../contexts/ctxMain';
 import { ToDoModel } from '../../domain/model/model';
@@ -14,27 +14,27 @@ export function ToDoList() {
 	const [search] = useAtom(ctxMain.search);
 
 	useEffect(() => {
-		// --
 		(async () => {
 			let list = await ToDoService.GetToDoList();
 			setDB(list);
 		})();
-		// --
 	}, []);
 
-	let filteredItems =
+	let list =
 		option != 'todos'
 			? DB?.filter((item) => item.status == option)
 			: DB?.filter((item) => item.status != 'deletada');
 
-	filteredItems = filteredItems.filter((item) =>
-		item.desc.toLowerCase().includes(search.toLowerCase().trim())
-	);
+	let filteredItems = useMemo(() => {
+		return list.filter((item) =>
+			item.desc.toLowerCase().includes(search.toLowerCase().trim())
+		);
+	}, [DB, option, search]);
 
 	return (
 		<div className='w-128 h-full overflow-auto flex flex-col items-center gap-2 no-scrollbar'>
 			{filteredItems.length == 0 && (
-				<div className='font-bold text-black/50'>não há anotações</div>
+				<div className='font-semibold text-black/50'>não há anotações</div>
 			)}
 			<AnimatePresence>
 				{filteredItems
@@ -100,28 +100,29 @@ function ToDoView({ info }: { info: ToDoModel }) {
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0, scale: 0.8 }}
-			layout
 			transition={{ type: 'spring', stiffness: 500, damping: 50 }}
+			layout
+			autoFocus
 			className='bg-white w-full rounded-lg shrink-0 h-max flex flex-col overflow-hidden'>
-			<div className='m-2 p-1 border-2 border-transparent hover:border-stone-300 transition-color  rounded font-semibold '>
+			<div className='m-2 p-1 border-2 border-transparent hover:border-stone-300 transition-color rounded font-semibold '>
 				{isEditing ? (
 					<TextareaAutosize
 						autoFocus
-						minRows={1}
 						maxRows={4}
 						value={desc}
+						readOnly={info.status == 'deletada' && true}
 						onBlur={() => setEditing(false)}
 						onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
 							info.status !== 'deletada' && setDesc(e.target.value)
 						}
-						className='scrollbar-thin text-base w-full px-2 outline-none text-[#28282b] resize-none overflow-y-auto'
+						className='animate-none scrollbar-thin text-base w-full px-2 outline-none text-[#28282b] resize-none overflow-y-auto'
 					/>
 				) : (
-					<p
+					<p	
 						onClick={() => setEditing(true)}
 						className={clsx(
-							'text-base px-2  line-clamp-1 cursor-text',
-							desc.length != 0 ? 'text-[#28282b]' : 'text-stone-400'
+							'text-base px-2 cursor-text',
+							desc.length != 0 ? 'text-stone-800' : 'text-stone-400'
 						)}>
 						{desc || 'Escreva...'}
 					</p>
@@ -137,7 +138,7 @@ function ToDoView({ info }: { info: ToDoModel }) {
 						)
 					}
 					className={clsx(
-						'h-full w-21 px-2 font-bold rounded grid place-content-center',
+						'h-full w-21 px-2 font-semibold rounded grid place-content-center',
 						status == 'deletada'
 							? 'bg-stone-500/50 text-stone-700'
 							: status == 'concluida'
@@ -151,7 +152,7 @@ function ToDoView({ info }: { info: ToDoModel }) {
 						: 'pendente'}
 				</button>
 
-				<span className='bg-stone-500/30 h-full w-max text-stone-600 font-bold rounded cursor-default items-center gap-1 px-2 text-sm flex'>
+				<span className='bg-stone-500/30 h-full w-max text-stone-600 font-semibold rounded cursor-default items-center gap-1 px-2 text-sm flex'>
 					<luc.CalendarClock
 						size={16}
 						strokeWidth={2.5}
@@ -168,7 +169,7 @@ function ToDoView({ info }: { info: ToDoModel }) {
 					{status == 'deletada' && (
 						<button
 							onClick={() => RefreshToDo()}
-							className='hover:bg-blue-500/50 text-stone-400/50 clickBTN h-full w-max px-2 hover:text-blue-700 font-bold rounded cursor-pointer grid place-content-center transition-colors'>
+							className='hover:bg-blue-500/50 text-stone-400/50 clickBTN h-full w-max px-2 hover:text-blue-700 font-semibold rounded cursor-pointer grid place-content-center transition-colors'>
 							restaurar
 						</button>
 					)}
@@ -186,12 +187,12 @@ function ToDoView({ info }: { info: ToDoModel }) {
 	);
 }
 
-export function DeleteSoftToDo() {
+export function SoftDeleteToDo() {
 	const [, setDB] = useAtom(ctxMain.BagToDos);
 	const [idToDo] = useAtom(ctxToDo.idItemRemove);
 	const [, setModalView] = useAtom(ctxMain.modalView);
 
-	const deleteSoftToDo = async () => {
+	const TrueDeleteToDo = async () => {
 		console.log(idToDo);
 		await ToDoService.DeleteToDo(idToDo);
 		setDB((prev) => prev.filter((item) => item.id != idToDo));
@@ -199,7 +200,7 @@ export function DeleteSoftToDo() {
 	};
 
 	return (
-		<div className='bg-white h-max w-100 rounded-lg py-7 px-7 flex flex-col gap-5 justify-center items-center'>
+		<div className='bg-stone-50 h-max w-100 rounded-lg py-7 px-7 flex flex-col gap-5 justify-center items-center animate-surgir-in'>
 			<div className='self-center'>
 				<luc.TriangleAlert
 					className='text-amber-500'
@@ -222,7 +223,7 @@ export function DeleteSoftToDo() {
 					Cancel
 				</button>
 				<button
-					onClick={() => deleteSoftToDo()}
+					onClick={() => TrueDeleteToDo()}
 					className='w-max min-w-30 mt-auto bg-red-500/50 text-red-500 font-bold rounded px-3 py-1 text-base cursor-pointer clickBTN self-center'>
 					Delete
 				</button>

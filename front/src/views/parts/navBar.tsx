@@ -3,7 +3,6 @@ import { ctxMain } from '../../contexts/ctxMain';
 import { ToDoStatus } from '../../domain/model/model';
 import clsx from 'clsx';
 import { ToDoService } from '../../domain/services/todoActions';
-import { FaPlus, FaSearch } from 'react-icons/fa';
 import * as luc from 'lucide-react';
 
 export function NavBar() {
@@ -18,7 +17,7 @@ export function NavBar() {
 
 	return (
 		<div className='shrink-0 w-136 bg-white p-2 h-13 flex gap-1 rounded-lg text-sm flex-row '>
-			<div className=' bg-stone-200 focus-within:bg-stone-300 transition-colors w-full rounded font-bold text-[#28282b] px-2 text-base flex items-center gap-2'>
+			<div className=' bg-stone-200 focus-within:bg-stone-300 transition-colors w-full rounded font-semibold text-[#28282b] px-2 text-base flex items-center gap-2'>
 				<luc.Search
 					size={16}
 					strokeWidth={3.0}
@@ -37,14 +36,17 @@ export function NavBar() {
 			</div>
 
 			<button
-				onClick={() => option != 'deletada' && SaveToDo()}
+				onClick={() => option != 'deletada' && search.length <= 0 && SaveToDo()}
 				className={clsx(
-					'rounded px-4 w-4 bg-purple-500 text-white font-bold text-[20px]  grid place-content-center',
-					option != 'deletada' ? 'clickBTN cursor-pointer' : 'opacity-40'
+					'rounded px-4 w-4 bg-green-off text-white font-bold text-[20px]  grid place-content-center',
+					option != 'deletada' && search.length <= 0
+						? 'clickBTN cursor-pointer'
+						: 'opacity-40'
 				)}>
-				<luc.Plus
-					strokeWidth={3}
+				<luc.CirclePlus
+					strokeWidth={2}
 					size={20}
+					className='text-white'
 				/>
 			</button>
 		</div>
@@ -59,7 +61,7 @@ export function FilterStatus() {
 			className='px-2'>
 			<span
 				className={clsx(
-					'transition-all cursor-pointer text-base font-extrabold',
+					'transition-all cursor-pointer text-base font-semibold',
 					option == text ? 'text-white' : 'text-black/70 hover:text-black'
 				)}>
 				{text}
