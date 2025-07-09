@@ -15,7 +15,7 @@ export default function ToDoApp() {
 
 	return (
 		<>
-			<div className='bg-green-off h-screen w-screen p-2 flex flex-col items-center gap-3'>
+			<div className='bg-pastel-purple h-screen w-screen p-2 flex flex-col items-center gap-3'>
 				<NavBar />
 				<FilterStatus />
 				<ToDoList />

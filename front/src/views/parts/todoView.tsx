@@ -104,7 +104,7 @@ function ToDoView({ info }: { info: ToDoModel }) {
 			layout
 			autoFocus
 			className='bg-white w-full rounded-lg shrink-0 h-max flex flex-col overflow-hidden'>
-			<div className='m-2 p-1 border-2 border-transparent hover:border-stone-300 transition-color rounded font-semibold '>
+			<div className='m-2 p-1 grid place-items-start border-2 border-transparent hover:border-stone-300 transition-color rounded font-semibold '>
 				{isEditing ? (
 					<TextareaAutosize
 						autoFocus
@@ -115,13 +115,13 @@ function ToDoView({ info }: { info: ToDoModel }) {
 						onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
 							info.status !== 'deletada' && setDesc(e.target.value)
 						}
-						className='animate-none scrollbar-thin text-base w-full px-2 outline-none text-[#28282b] resize-none overflow-y-auto'
+						className='transition-discrete scrollbar-thin text-base w-full px-2 outline-none text-[#28282b] resize-none overflow-y-auto'
 					/>
 				) : (
-					<p	
+					<p
 						onClick={() => setEditing(true)}
 						className={clsx(
-							'text-base px-2 cursor-text',
+							'text-base px-2 cursor-text line-clamp-1 w-full h-full',
 							desc.length != 0 ? 'text-stone-800' : 'text-stone-400'
 						)}>
 						{desc || 'Escreva...'}

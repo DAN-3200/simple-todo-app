@@ -20,7 +20,7 @@ export function NavBar() {
 			<div className=' bg-stone-200 focus-within:bg-stone-300 transition-colors w-full rounded font-semibold text-[#28282b] px-2 text-base flex items-center gap-2'>
 				<luc.Search
 					size={16}
-					strokeWidth={3.0}
+					strokeWidth={3.5}
 					className='text-stone-500'
 				/>
 				<input
