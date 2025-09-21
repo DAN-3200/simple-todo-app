@@ -4,7 +4,7 @@
   "main": "main.ts",
   "scripts": {
     "dev": "nodemon",
-    "server": "pnpx tsc main.ts"
+    "server": "pnpx tsc src/main.ts"
   },
   "author": "",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "dotenv": "^16.5.0",
     "mongodb": "^6.17.0",
     "morgan": "^1.10.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from 'mongodb';
-import { RepoDB } from './contracts';
-import { ToDoModel } from './model';
+import { RepoDB } from '../internal/ports';
+import { ToDoEntity } from '../internal/entity';
 
 export class MongoRepoToDo implements RepoDB {
 	private conn: MongoClient;
@@ -17,14 +17,14 @@ export class MongoRepoToDo implements RepoDB {
 			await db.createCollection(nameCollection);
 		}
 	}
-	async SaveToDo(newToDo: ToDoModel): Promise<ToDoModel> {
+	async SaveToDo(newToDo: ToDoEntity): Promise<ToDoEntity> {
 		let objToDo = await this.conn
 			.db('ToDoBase')
-			.collection<ToDoModel>('ToDoS')
+			.collection<ToDoEntity>('ToDoS')
 			.insertOne(newToDo);
 		let toDo = await this.conn
 			.db('ToDoBase')
-			.collection<ToDoModel>('ToDoS')
+			.collection<ToDoEntity>('ToDoS')
 			.findOne({ _id: objToDo.insertedId });
 
 		return {
@@ -32,12 +32,12 @@ export class MongoRepoToDo implements RepoDB {
 			desc: toDo!.desc,
 			status: toDo!.status,
 			createdAt: toDo!.createdAt,
-		} as ToDoModel;
+		} as ToDoEntity;
 	}
-	async GetToDo(id: string): Promise<ToDoModel> {
+	async GetToDo(id: string): Promise<ToDoEntity> {
 		let toDo = await this.conn
 			.db('ToDoBase')
-			.collection<ToDoModel>('ToDoS')
+			.collection<ToDoEntity>('ToDoS')
 			.findOne({ _id: new ObjectId(id) });
 
 		return {
@@ -45,23 +45,23 @@ export class MongoRepoToDo implements RepoDB {
 			desc: toDo!.desc,
 			status: toDo!.status,
 			createdAt: toDo!.createdAt,
-		} as ToDoModel;
+		} as ToDoEntity;
 	}
-	async GetToDoList(): Promise<ToDoModel[]> {
+	async GetToDoList(): Promise<ToDoEntity[]> {
 		let toDoList = await this.conn
 			.db('ToDoBase')
-			.collection<ToDoModel>('ToDoS')
+			.collection<ToDoEntity>('ToDoS')
 			.find({})
 			.toArray();
 
-		return toDoList.map<ToDoModel>((item) => ({
+		return toDoList.map<ToDoEntity>((item: any) => ({
 			id: item._id.toString(),
 			desc: item.desc,
 			status: item.status,
 			createdAt: item.createdAt,
 		}));
 	}
-	async EditToDo(info: ToDoModel): Promise<void> {
+	async EditToDo(info: ToDoEntity): Promise<void> {
 		await this.conn
 			.db('ToDoBase')
 			.collection('ToDoS')

@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import RunServer from './system/server';
+import RunServer from './src/external/server';
 
 // função 'main' = incializar tudo junto
 (async () => {

@@ -1,4 +1,4 @@
-export interface ToDoModel {
+export interface ToDoEntity {
 	id: string;
 	desc: string;
 	status: ToDoStatus;
@@ -6,4 +6,3 @@ export interface ToDoModel {
 }
 
 export type ToDoStatus = 'pendente' | 'concluida' | 'deletada';
-	

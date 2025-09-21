@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { Conn_MongoDB } from './conn_db';
 import { MongoRepoToDo } from './repository';
-import { ToDoService } from './services';
+import { ToDoUseCase } from '../internal/usecase';
 import { ToDoController } from './controllers';
 
 export default async function RunServer() {
@@ -22,7 +22,7 @@ export default async function RunServer() {
 async function RoutesManager(server: Express.Application) {
 	const repository = new MongoRepoToDo(await Conn_MongoDB());
 	await repository.CreateToDoDB();
-	const service = new ToDoService(repository);
+	const service = new ToDoUseCase(repository);
 	const handle = new ToDoController(service);
 
 	server.post('/todo', handle.SaveToDo);

@@ -1,21 +1,21 @@
-import { RepoDB } from './contracts';
-import { ToDoModel } from './model';
+import { RepoDB } from './ports';
+import { ToDoEntity } from './entity';
 
-export class ToDoService {
+export class ToDoUseCase {
 	private repo: RepoDB;
 	constructor(repository: RepoDB) {
 		this.repo = repository;
 	}
-	async SaveToDo(todo: ToDoModel): Promise<ToDoModel> {
+	async SaveToDo(todo: ToDoEntity): Promise<ToDoEntity> {
 		return await this.repo.SaveToDo(todo);
 	}
-	async GetToDo(id: string): Promise<ToDoModel> {
+	async GetToDo(id: string): Promise<ToDoEntity> {
 		return await this.repo.GetToDo(id);
 	}
-	async GetToDoList(): Promise<ToDoModel[]> {
+	async GetToDoList(): Promise<ToDoEntity[]> {
 		return await this.repo.GetToDoList();
 	}
-	async EditToDo(info: ToDoModel) {
+	async EditToDo(info: ToDoEntity) {
 		await this.repo.EditToDo(info);
 	}
 	async DeleteToDo(id: string) {
